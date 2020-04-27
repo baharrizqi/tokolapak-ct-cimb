@@ -5,7 +5,6 @@ type TextFieldProps = {
   focused?: boolean;
   className: string;
   placeholder: string;
-  onChange: any;
 };
 
 class TextField extends React.Component<TextFieldProps> {
@@ -25,7 +24,6 @@ class TextField extends React.Component<TextFieldProps> {
   render() {
     return (
       <input
-        onChange={this.props.onChange}
         placeholder={this.props.placeholder}
         type="text"
         onFocus={this.onFocus}
