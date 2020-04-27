@@ -4,9 +4,7 @@ import ButtonUI from '../../components/Button/Button'
 import './AuthScreen.css'
 
 class AuthScreen extends React.Component {
-  btnHandler= () => {
-    alert('masuk')
-  }
+
   state = {
     condition: true
   }
@@ -27,7 +25,7 @@ class AuthScreen extends React.Component {
             <div className="col-5">
               <div>
                 <div className="d-flex">
-                  <input type="button" value="Register" className="btn btn-light mr-3" onClick={this.registerHandler}/>
+                  <input type="button" value="Register" className="btn btn-light mr-3" style={{backgroundColor: "white"}} onClick={this.registerHandler}/>
                   <input type="button" value="Login" className="btn btn-dark" onClick={this.loginHandler}/>
                 </div>
                 <h3 className="mt-2">Log In</h3>
@@ -53,15 +51,15 @@ class AuthScreen extends React.Component {
               <div>
                 <div className="d-flex">
                   <input type="button" value="Register" className="btn btn-dark mr-3" onClick={this.registerHandler}/>
-                  <input type="button" value="Login" className="btn btn-light" onClick={this.loginHandler}/>
+                  <input type="button" value="Login" className="btn btn-light" style={{backgroundColor: "white"}} onClick={this.loginHandler}/>
                 </div>
                 <h3 className="mt-2">Register</h3>
                 <p className="mt-4">You will get the best recommendation for rent <br /> house in near of you</p>
                 <TextField placeholder="Name" className="mt-5" />
                 <TextField placeholder="Email" className="mt-2" />
-                <TextField placeholder="Password" className="mt-2" />
+                <TextField placeholder="Password" className="mt-2 fa fa-eye" />
                 <TextField placeholder="Confirm password" className="mt-2" />
-               <input type="checkbox"/> <span>I agree to</span> <span style={{color: "blue"}}>Terms of Use</span>
+               <input type="checkbox"/> <span>I agree to</span> <span style={{color: "#1e4693"}}>Terms of Use</span>
                 <div className="d-flex justify-content-center">
                   <ButtonUI type="contained" className="mt-4">
                     Register
