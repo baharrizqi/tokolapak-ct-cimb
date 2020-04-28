@@ -8,6 +8,7 @@ import {
   faHeadset,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Home.css";
+import Axios from 'axios'
 
 import ProductCard from "../../components/Cards/ProductCard.tsx";
 
@@ -17,6 +18,7 @@ import iPadPro from "../../../assets/images/Showcase/iPad-Pro.png";
 import ButtonUI from "../../components/Button/Button";
 import CarouselShowcaseItem from "./CarouselShowcaseItem.tsx";
 import Colors from "../../../constants/Colors";
+import { API_URL } from "../../../constants/API";
 
 const dummy = [
   {
@@ -49,6 +51,7 @@ class Home extends React.Component {
   state = {
     activeIndex: 0,
     animating: false,
+    bestSellerData: [],
   };
 
   renderCarouselItems = () => {
@@ -108,6 +111,28 @@ class Home extends React.Component {
     this.setState({ activeIndex: prevIndex });
   };
 
+  getBestSellerData = () => {
+    Axios.get(`${API_URL}/products`)
+    .then((res)=> {
+      this.setState({bestSellerData:res.data})
+    })
+    .catch((err)=> {
+      console.log(err);
+    })
+  }
+
+  renderProducts = () => {
+    return this.state.bestSellerData.map(val => {
+      return (
+        <ProductCard data={val} className="m-2"/>
+      ) 
+    })
+  }
+  
+  componentDidMount() {
+    this.getBestSellerData()
+  }
+
   render() {
     return (
       <div>
@@ -147,11 +172,12 @@ class Home extends React.Component {
           {/* BEST SELLER SECTION */}
           <h2 className="text-center font-weight-bolder mt-5">BEST SELLER</h2>
           <div className="row d-flex flex-wrap justify-content-center">
+            {/* <ProductCard className="m-2" />
             <ProductCard className="m-2" />
             <ProductCard className="m-2" />
             <ProductCard className="m-2" />
-            <ProductCard className="m-2" />
-            <ProductCard className="m-2" />
+            <ProductCard className="m-2" /> */}
+            {this.renderProducts()}
           </div>
         </div>
         {/* ABOUT SECTION */}
