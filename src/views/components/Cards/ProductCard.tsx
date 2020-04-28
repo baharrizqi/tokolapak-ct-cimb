@@ -4,7 +4,6 @@ import ButtonUI from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faStar } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
-import {connect} from 'react-redux'
 
 interface ProductCardData {
   id?: number;
@@ -62,12 +61,6 @@ class ProductCard extends React.Component<ProductCardProps> {
         </div>
       </div>
     );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-      data: state.data,
   }
 }
 
