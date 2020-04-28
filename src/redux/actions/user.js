@@ -83,12 +83,20 @@ export const logoutHandler = () => {
 }
 
 export const registerHandler = (userData) => {
-    return (dispatch) => {
-        Axios.get(`${API_URL}/users`, {
-            params: {
-                username: userData.username,
-            },
-        })
+  return (dispatch) => {
+    Axios.get(`${API_URL}/users`, {
+      params: {
+        username: userData.username,
+      },
+    })
+      .then((res) => {
+        if (res.data.length > 0) {
+          dispatch({
+            type: "ON_REGISTER_FAIL",
+            payload: "Username sudah digunakan",
+          });
+        } else {
+          Axios.post(`${API_URL}/users`, userData)
             .then((res) => {
                 if (res.data.length > 0) {
                     dispatch({

@@ -3,11 +3,10 @@ import "./TextField.css";
 
 type TextFieldProps = {
   focused?: boolean;
-  className: string;
-  placeholder: string;
-  onChange: any;
+  className?: string;
+  placeholder?: string;
+  onChange?: any;
   value?: any;
-  type?: string;
 };
 
 class TextField extends React.Component<TextFieldProps> {
