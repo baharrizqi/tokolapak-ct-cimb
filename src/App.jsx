@@ -21,9 +21,10 @@ class App extends React.Component {
       let cookieResult = cookieObj.get("authData");
       if (cookieResult) {
         this.props.keepLogin(cookieResult);
+      } else{
+        this.props.cookieChecker();
       }
-      this.props.cookieChecker();
-    },2000)
+    },1000)
   }
 
   render() {

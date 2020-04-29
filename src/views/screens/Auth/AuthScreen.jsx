@@ -203,11 +203,6 @@ class AuthScreen extends React.Component {
           <div className="col-7">Picture</div>
         </div>
       </div>
-
-
-
-
-
     )
   }
 }
