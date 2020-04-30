@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
 
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { connect } from 'react-redux'
 import "./Navbar.css";
 import ButtonUI from "../Button/Button.tsx";
 

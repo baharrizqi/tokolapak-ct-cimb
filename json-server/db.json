@@ -10,6 +10,7 @@
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
+      "role": "user",
       "id": 2
     },
     {
@@ -17,7 +18,16 @@
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
+      "role": "user",
       "id": 3
+    },
+    {
+      "username": "admin",
+      "fullName": "Super Admin",
+      "password": "password",
+      "email": "admin@mail.com",
+      "role": "admin",
+      "id": 4
     }
   ],
   "products": [
@@ -32,7 +42,7 @@
     {
       "productName": "iPad Pro 3",
       "price": 15000000,
-      "category": "Tablet",
+      "category": "Tab",
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
       "desc": "HP Terbaikk loh",
       "id": 2
@@ -44,6 +54,22 @@
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/m/b/mbp15touch-silver-select-cto-201807_3_1.jpeg",
       "desc": "HP Terbaikk loh",
       "id": 3
+    },
+    {
+      "productName": "Desktop Mac",
+      "price": "230000000",
+      "category": "Phone",
+      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
+      "desc": "Tab SUltan",
+      "id": 4
+    },
+    {
+      "productName": "Mencoba aja",
+      "price": "11",
+      "category": "Desktop",
+      "image": "Gambar",
+      "desc": "coba dulu",
+      "id": 5
     }
   ],
   "carts": [
@@ -64,6 +90,15 @@
       "productId": 1,
       "quantity": 1,
       "id": 3
+    }
+  ],
+  "transction": [
+    {
+      "userId": 2,
+      "totalPrice": 100000,
+      "status":"pending",
+      "items":[],
+      "id": 1
     }
   ]
 }
