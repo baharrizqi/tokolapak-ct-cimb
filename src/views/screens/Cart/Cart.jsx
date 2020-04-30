@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import './Cart.css'
 import Axios from 'axios'
+import { Link } from "react-router-dom";
 import { API_URL } from '../../../constants/API'
 import ButtonUI from '../../components/Button/Button'
 import { Alert } from 'reactstrap'
@@ -13,7 +14,7 @@ class Cart extends React.Component {
     componentDidMount() {
         this.addCart()
     }
-    addCart=() => {
+    addCart = () => {
         Axios.get(`${API_URL}/cart`, {
             params: {
                 userId: this.props.user.id,
@@ -50,7 +51,7 @@ class Cart extends React.Component {
                         src={value.product.image}
                         alt="" />
                     </td>
-                    <td><ButtonUI onClick={()=> this.deleteDataHandler(value.id)}>Delete</ButtonUI></td>
+                    <td><ButtonUI onClick={() => this.deleteDataHandler(value.id)}>Delete</ButtonUI></td>
                 </tr>
             )
         })
@@ -71,21 +72,29 @@ class Cart extends React.Component {
     renderTable = () => {
         return (
             <div className="container">
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>No</th>
-                            <th>Name Product</th>
-                            <th>Price</th>
-                            <th>Description</th>
-                            <th>Photo Product</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        {this.renderArr()}
-                    </tbody>
-                </table>
+                {
+                    this.state.cartData.length > 0 ? (
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name Product</th>
+                                    <th>Price</th>
+                                    <th>Description</th>
+                                    <th>Photo Product</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                {this.renderArr()}
+                            </tbody>
+                        </table>
+                    ): (
+                        <Alert>
+                            Your cart is empty! <Link to="/">Go Shopping</Link>
+                        </Alert>
+                    )
+            }
             </div>
         )
     }
