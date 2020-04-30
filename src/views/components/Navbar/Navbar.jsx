@@ -1,11 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
 
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { connect } from 'react-redux'
 import "./Navbar.css";
-import { Link } from "react-router-dom";
 import ButtonUI from "../Button/Button.tsx";
 
 const CircleBg = ({ children }) => {
@@ -50,35 +52,43 @@ class Navbar extends React.Component {
             <>
               <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
               <p className="small ml-3 mr-4">{this.props.user.username}</p>
-              <FontAwesomeIcon
-                className="mr-2"
-                icon={faShoppingCart}
-                style={{ fontSize: 24 }}
-              />
-              <CircleBg>
-                <small style={{ color: "#3C64B1", fontWeight: "bold" }}>4</small>
-              </CircleBg>
+              <Link
+                className="d-flex flex-row"
+                to="/cart"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <FontAwesomeIcon
+                  className="mr-2"
+                  icon={faShoppingCart}
+                  style={{ fontSize: 24 }}
+                />
+                <CircleBg>
+                  <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
+                    4
+                  </small>
+                </CircleBg>
+              </Link>
             </>
           ) : (
-              <>
-                <ButtonUI className="mr-3" type="textual">
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to="/auth"
-                  >
-                    Sign in
+            <>
+              <ButtonUI className="mr-3" type="textual">
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to="/auth"
+                >
+                  Sign in
                 </Link>
-                </ButtonUI>
-                <ButtonUI type="contained">
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to="/auth"
-                  >
-                    Sign up
+              </ButtonUI>
+              <ButtonUI type="contained">
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to="/auth"
+                >
+                  Sign up
                 </Link>
-                </ButtonUI>
-              </>
-            )}
+              </ButtonUI>
+            </>
+          )}
         </div>
       </div>
     )
@@ -90,6 +100,5 @@ const mapStateToProps = (state) => {
     user: state.user,
   };
 };
-
 
 export default connect(mapStateToProps)(Navbar);
