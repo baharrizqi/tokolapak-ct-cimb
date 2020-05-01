@@ -64,40 +64,50 @@
       "id": 4
     },
     {
-      "productName": "Mencoba aja",
-      "price": "11",
-      "category": "Desktop",
-      "image": "Gambar",
-      "desc": "coba dulu",
+      "productName": "Laptop Keren",
+      "price": "2300000",
+      "category": "Laptop",
+      "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/macbook_air_13/Product.png",
+      "desc": "harga jutaan",
       "id": 5
+    },
+    {
+      "productName": "Air Pods keren",
+      "price": "5000000",
+      "category": "Desktop",
+      "image": "https://ibox.co.id/media/wysiwyg/Slider/airpods-pro.png",
+      "desc": "Harga lumayan sih",
+      "id": 6
+    },
+    {
+      "productName": "Apel Jam",
+      "price": "1200000",
+      "category": "Desktop",
+      "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/apple_watch_5/Product.png",
+      "desc": "Ingin punya jam ? Ya beli",
+      "id": 7
     }
   ],
   "carts": [
     {
-      "userId": 2,
-      "productId": 2,
+      "userId": 1,
+      "productId": 1,
       "quantity": 1,
       "id": 1
     },
     {
-      "userId": 2,
+      "userId": 1,
       "productId": 2,
       "quantity": 1,
       "id": 2
-    },
-    {
-      "userId": 1,
-      "productId": 1,
-      "quantity": 1,
-      "id": 3
     }
   ],
   "transction": [
     {
       "userId": 2,
       "totalPrice": 100000,
-      "status":"pending",
-      "items":[],
+      "status": "pending",
+      "items": [],
       "id": 1
     }
   ]

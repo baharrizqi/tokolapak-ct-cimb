@@ -34,30 +34,30 @@ class Cart extends React.Component {
     return this.state.cartData.map((val, idx) => {
       const { quantity, product, id } = val;
       const { productName, image, price } = product;
-      return (
-        <tr>
-          <td>{idx + 1}</td>
-          <td>{productName}</td>
-          <td>{price}</td>
-          <td>{quantity}</td>
-          <td>
-            {" "}
-            <img
-              src={image}
-              alt=""
-              style={{ width: "100px", height: "200px", objectFit: "contain" }}
-            />{" "}
-          </td>
-          <td>
-            <ButtonUI
-              type="outlined"
-              onClick={() => this.deleteCartHandler(id)}
-            >
-              Delete Item
-            </ButtonUI>
-          </td>
-        </tr>
-      );
+        return ( 
+          <tr>
+            <td>{idx + 1}</td>
+            <td>{productName}</td>
+            <td>{price}</td>
+            <td>{quantity}</td>
+            <td>
+              {" "}
+              <img
+                src={image}
+                alt=""
+                style={{ width: "100px", height: "200px", objectFit: "contain" }}
+              />{" "}
+            </td>
+            <td>
+              <ButtonUI
+                type="outlined"
+                onClick={() => this.deleteCartHandler(id)}
+              >
+                Delete Item
+              </ButtonUI>
+            </td>
+          </tr>
+        );
     });
   };
 

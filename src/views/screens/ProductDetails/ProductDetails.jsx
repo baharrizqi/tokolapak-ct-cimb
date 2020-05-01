@@ -25,18 +25,41 @@ class ProductDetails extends React.Component {
     // Isinya: userId, productId, quantity
     // console.log(this.props.user.id);
     console.log(this.state.productData.id);
-    Axios.post(`${API_URL}/carts`, {
-      userId: this.props.user.id,
-      productId: this.state.productData.id,
-      quantity: 1,
+    const userId = this.props.user.id
+    const {id} = this.state.productData
+
+    Axios.get(`${API_URL}/carts`,{
+      params:{
+        productId:id,
+        userId:userId,
+      }
     })
-      .then((res) => {
-        console.log(res);
-        swal("Add to cart", "Your item has been added to your cart", "success");
+    .then((res) => {
+        if (res.data.length ==0) {
+          Axios.post(`${API_URL}/carts`, {
+            userId: this.props.user.id,
+            productId: this.state.productData.id,
+            quantity: 1,
+          })
+            .then((res) => {
+              console.log(res);
+              swal("Add to cart", "Your item has been added to your cart", "success");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else  {
+          Axios.patch(`${API_URL}/carts/${res.data[0].id}`,{
+            quantity: res.data[0].quantity+1
+          })
+          .then((res)=> {
+            console.log(res.data)
+          })
+        }
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
   };
 
   componentDidMount() {
