@@ -69,6 +69,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ### Project BacaAjaDulu
 
-* Bisa Jual/Beli
-* Bisa Sewa
+* Bisa Jual/Beli Buku
+* Bisa Sewa Buku
 
