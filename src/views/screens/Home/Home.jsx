@@ -19,6 +19,7 @@ import ButtonUI from "../../components/Button/Button";
 import CarouselShowcaseItem from "./CarouselShowcaseItem.tsx";
 import Colors from "../../../constants/Colors";
 import { API_URL } from "../../../constants/API";
+import { connect } from "react-redux";
 
 const dummy = [
   {
@@ -121,11 +122,38 @@ class Home extends React.Component {
       });
   };
 
+  filterCategoryBtn = (categoryAll) => {
+    if (!categoryAll) {
+      Axios.get(`${API_URL}/products`)
+        .then(res => {
+          this.setState({ bestSellerData: res.data })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    else {
+      Axios.get(`${API_URL}/products`, {
+        params: {
+          category: categoryAll
+        }
+      })
+        .then(res => {
+          this.setState({ bestSellerData: res.data })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+
   renderProducts = () => {
     return this.state.bestSellerData.map((val) => {
-      return (
-        <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2" />
-      );
+      if (val.productName.toLowerCase().startsWith(this.props.user.searching.toLowerCase())) {
+        return (
+          <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2" />
+        );
+      }
     });
   };
 
@@ -138,16 +166,19 @@ class Home extends React.Component {
       <div>
         <div className="d-flex justify-content-center flex-row align-items-center my-3">
           <Link to="/" style={{ color: "inherit" }}>
-            <h6 className="mx-4 font-weight-bold">PHONE</h6>
+            <h6 onClick={() => this.filterCategoryBtn()} className="mx-4 font-weight-bold">ALL CATEGORY</h6>
           </Link>
           <Link to="/" style={{ color: "inherit" }}>
-            <h6 className="mx-4 font-weight-bold">LAPTOP</h6>
+            <h6 onClick={() => this.filterCategoryBtn("Phone")} className="mx-4 font-weight-bold">PHONE</h6>
           </Link>
           <Link to="/" style={{ color: "inherit" }}>
-            <h6 className="mx-4 font-weight-bold">TAB</h6>
+            <h6 onClick={() => this.filterCategoryBtn("Laptop")} className="mx-4 font-weight-bold">LAPTOP</h6>
           </Link>
           <Link to="/" style={{ color: "inherit" }}>
-            <h6 className="mx-4 font-weight-bold">DESKTOP</h6>
+            <h6 onClick={() => this.filterCategoryBtn("Tab")} className="mx-4 font-weight-bold">TAB</h6>
+          </Link>
+          <Link to="/" style={{ color: "inherit" }}>
+            <h6 onClick={() => this.filterCategoryBtn("Desktop")} className="mx-4 font-weight-bold">DESKTOP</h6>
           </Link>
         </div>
         <Carousel
@@ -170,7 +201,7 @@ class Home extends React.Component {
         </Carousel>
         <div className="container">
           {/* BEST SELLER SECTION */}
-          <h2 className="text-center font-weight-bolder mt-5">BEST SELLER</h2>
+          <h2 className="text-center font-weight-bolder mt-5">BEST SELLER, {this.props.user.searching}</h2>
           <div className="row d-flex flex-wrap justify-content-center">
             {this.renderProducts()}
           </div>
@@ -229,4 +260,11 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    category: state.category.productName,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

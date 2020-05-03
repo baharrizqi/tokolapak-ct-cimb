@@ -13,7 +13,9 @@ import {
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "./Navbar.css";
 import ButtonUI from "../Button/Button.tsx";
-import { logoutHandler } from "../../../redux/actions";
+import { logoutHandler, navbarInputHandler } from "../../../redux/actions";
+import Axios from "axios";
+import { API_URL } from "../../../constants/API";
 
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
@@ -24,7 +26,30 @@ class Navbar extends React.Component {
     searchBarIsFocused: false,
     searcBarInput: "",
     dropdownOpen: false,
+    // cartData: [],
+    // totalQty: 0,
   };
+
+  // getCartQty = () => {
+  //   let subQty = 0
+  //   Axios.get(`${API_URL}/carts`, {
+  //     params: {
+  //       userId: this.props.user.id,
+  //       _expand: "product",
+  //     },
+  //   })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       this.setState({ cartData: res.data });
+  //       this.state.cartData.map((val) => {
+  //         subQty +=  val.quantity
+  //       })
+  //       this.setState({ totalQty: subQty })
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   onFocus = () => {
     this.setState({ searchBarIsFocused: true });
@@ -42,6 +67,10 @@ class Navbar extends React.Component {
   toggleDropdown = () => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
+
+  // componentDidMount() {
+  //   this.getCartQty()
+  // }
 
   render() {
     return (
@@ -61,6 +90,7 @@ class Navbar extends React.Component {
               }`}
             type="text"
             placeholder="Cari produk impianmu disini"
+            onChange={(e) => this.props.onChangeFilter(e.target.value)}
           />
         </div>
         <div className="d-flex flex-row align-items-center">
@@ -99,7 +129,7 @@ class Navbar extends React.Component {
                 />
                 <CircleBg>
                   <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                    4
+                    4 
                   </small>
                 </CircleBg>
               </Link>
@@ -140,11 +170,13 @@ class Navbar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    category: state.category,
   };
 };
 
 const mapDispatchToProps = {
   onLogout : logoutHandler,
+  onChangeFilter: navbarInputHandler,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Navbar);

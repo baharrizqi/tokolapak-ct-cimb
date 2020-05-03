@@ -109,3 +109,10 @@ export const cookieChecker = () => {
   };
 };
 
+export const navbarInputHandler = (text) => {
+  return {
+      type: "ON_CHANGE_FILTER",
+      payload: text,
+  }
+}
+

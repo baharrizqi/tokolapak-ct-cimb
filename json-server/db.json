@@ -28,6 +28,14 @@
       "email": "admin@mail.com",
       "role": "admin",
       "id": 4
+    },
+    {
+      "username": "bahar",
+      "fullName": "rizqi",
+      "password": "123321",
+      "email": "m.bahar@mail.com",
+      "role": "user",
+      "id": 5
     }
   ],
   "products": [
@@ -88,26 +96,23 @@
       "id": 7
     }
   ],
-  "carts": [
+  "carts": [],
+  "transaction": [
     {
-      "userId": 1,
-      "productId": 1,
-      "quantity": 1,
-      "id": 1
-    },
-    {
-      "userId": 1,
-      "productId": 2,
-      "quantity": 1,
-      "id": 2
-    }
-  ],
-  "transction": [
-    {
-      "userId": 2,
-      "totalPrice": 100000,
+      "userId": 5,
+      "totalPrice": 10000000,
       "status": "pending",
-      "items": [],
+      "items": [
+        {
+          "productName": "iPhone 7 Plus",
+          "price": 5000000,
+          "category": "Phone",
+          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
+          "desc": "HP Terbaikk loh",
+          "id": 1,
+          "quantity": 2
+        }
+      ],
       "id": 1
     }
   ]
