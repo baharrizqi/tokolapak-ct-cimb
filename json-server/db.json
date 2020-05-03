@@ -96,7 +96,20 @@
       "id": 7
     }
   ],
-  "carts": [],
+  "carts": [
+    {
+      "userId": 5,
+      "productId": 1,
+      "quantity": 2,
+      "id": 1
+    },
+    {
+      "userId": 5,
+      "productId": 3,
+      "quantity": 1,
+      "id": 2
+    }
+  ],
   "transaction": [
     {
       "userId": 5,
