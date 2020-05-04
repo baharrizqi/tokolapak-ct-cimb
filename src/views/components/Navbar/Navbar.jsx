@@ -120,7 +120,9 @@ class Navbar extends React.Component {
                         <Link to="/members">
                         <DropdownItem>Members</DropdownItem>
                         </Link>
+                        <Link to="/payments">
                         <DropdownItem>Payments</DropdownItem>
+                        </Link>
                       </>
                     ) : (
                         <>

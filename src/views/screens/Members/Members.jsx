@@ -8,7 +8,6 @@ import ButtonUI from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import TextField from '../../components/TextField/TextField'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 
 
 class Members extends React.Component {
@@ -33,7 +32,11 @@ class Members extends React.Component {
     }
 
     getMembersList = () => {
-        Axios.get(`${API_URL}/users`)
+        Axios.get(`${API_URL}/users`,{
+            params: {
+                role : "user"
+            }
+        })
             .then((res) => {
                 this.setState({ membersList: res.data })
             })
@@ -59,7 +62,7 @@ class Members extends React.Component {
                                 onClick={(_) => this.editBtnHandler(idx)}
                             >
                                 Edit
-                    </ButtonUI>
+                            </ButtonUI>
                             <ButtonUI
                                 className="ml-2"
                                 type="outlined"

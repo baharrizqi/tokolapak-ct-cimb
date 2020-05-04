@@ -157,7 +157,8 @@ class Cart extends React.Component {
       //   this.state.cartData.map(val => {
       //     return { ...val.product, quantity: val.quantity }
       //   }),
-      date: this.getTime()
+      tanggalBelanja: this.getTime(),
+      tanggalSelesai: "",
     }
 
     Axios.get(`${API_URL}/carts`, {

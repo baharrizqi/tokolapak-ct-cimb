@@ -15,6 +15,7 @@ import Cart from "./views/screens/Cart/Cart";
 import AdminDashboard from "./views/screens/Admin/AdminDashboard";
 import Wishlist from "./views/screens/Wishlist/Wishlist";
 import Members from "./views/screens/Members/Members";
+import Payments from "./views/screens/Payments/Payments";
 
 const cookieObj = new Cookie();
 
@@ -35,6 +36,7 @@ class App extends React.Component {
         <>
           <Route exact path="/admin/dashboard" component={AdminDashboard} />
           <Route exact path="/members" component={Members} />
+          <Route exact path="/payments" component={Payments} />
         </>
       )
     }
