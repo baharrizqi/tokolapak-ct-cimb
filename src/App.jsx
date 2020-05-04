@@ -14,13 +14,14 @@ import { userKeepLogin, cookieChecker } from "./redux/actions";
 import Cart from "./views/screens/Cart/Cart";
 import AdminDashboard from "./views/screens/Admin/AdminDashboard";
 import Wishlist from "./views/screens/Wishlist/Wishlist";
+import Members from "./views/screens/Members/Members";
 
 const cookieObj = new Cookie();
 
 class App extends React.Component {
   componentDidMount() {
     setTimeout(() => {
-      let cookieResult = cookieObj.get("authData" , {path:"/"}); 
+      let cookieResult = cookieObj.get("authData", { path: "/" });
       if (cookieResult) {
         this.props.keepLogin(cookieResult);
       } else {
@@ -30,7 +31,12 @@ class App extends React.Component {
   }
   renderAdminRoutes = () => {
     if (this.props.user.role == "admin") {
-      return  <Route exact path="/admin/dashboard" component={AdminDashboard} />
+      return (
+        <>
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          <Route exact path="/members" component={Members} />
+        </>
+      )
     }
   }
 

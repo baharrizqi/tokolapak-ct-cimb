@@ -117,7 +117,9 @@ class Navbar extends React.Component {
                             Dashboard
                           </Link>
                         </DropdownItem>
+                        <Link to="/members">
                         <DropdownItem>Members</DropdownItem>
+                        </Link>
                         <DropdownItem>Payments</DropdownItem>
                       </>
                     ) : (
