@@ -19,16 +19,21 @@ type ProductCardProps = {
 };
 
 class ProductCard extends React.Component<ProductCardProps> {
+  state ={
+    productList: [],
+  }
   render() {
     const { id, productName, price, review, image } = this.props.data;
 
     return (
       <div className={`product-card d-inline-block ${this.props.className}`}>
+        <Link to={"/product/"+id}>
         <img
           src={image}
           alt={this.props.data.productName}
           style={{ width: "224px", height: "250px", objectFit: "contain" }}
         />
+        </Link>
         <div>
           <p className="mt-3">{productName}</p>
           <h5 style={{ fontWeight: "bolder" }}>

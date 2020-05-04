@@ -26,30 +26,30 @@ class Navbar extends React.Component {
     searchBarIsFocused: false,
     searcBarInput: "",
     dropdownOpen: false,
-    // cartData: [],
-    // totalQty: 0,
+    cartData: [],
+    totalQty: 0,
   };
 
-  // getCartQty = () => {
-  //   let subQty = 0
-  //   Axios.get(`${API_URL}/carts`, {
-  //     params: {
-  //       userId: this.props.user.id,
-  //       _expand: "product",
-  //     },
-  //   })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       this.setState({ cartData: res.data });
-  //       this.state.cartData.map((val) => {
-  //         subQty +=  val.quantity
-  //       })
-  //       this.setState({ totalQty: subQty })
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  getCartQty = () => {
+    let subQty = 0
+    Axios.get(`${API_URL}/carts`, {
+      params: {
+        userId: this.props.user.id,
+        _expand: "product",
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ cartData: res.data });
+        this.state.cartData.map((val) => {
+          subQty +=  val.quantity
+        })
+        this.setState({ totalQty: subQty })
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   onFocus = () => {
     this.setState({ searchBarIsFocused: true });
@@ -68,9 +68,9 @@ class Navbar extends React.Component {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
 
-  // componentDidMount() {
-  //   this.getCartQty()
-  // }
+  componentDidMount() {
+    this.getCartQty()
+  }
 
   render() {
     return (
@@ -96,6 +96,7 @@ class Navbar extends React.Component {
         <div className="d-flex flex-row align-items-center">
           {this.props.user.id ? (
             <>
+
               <Dropdown
                 toggle={this.toggleDropdown}
                 isOpen={this.state.dropdownOpen}
@@ -105,16 +106,26 @@ class Navbar extends React.Component {
                   <p className="small ml-3 mr-4">{this.props.user.username}</p>
                 </DropdownToggle>
                 <DropdownMenu className="mt-2">
-                  <DropdownItem>
-                    <Link
-                      style={{ color: "inherit", textDecoration: "none" }}
-                      to="/admin/dashboard"
-                    >
-                      Dashboard
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem>Members</DropdownItem>
-                  <DropdownItem>Payments</DropdownItem>
+                  {
+                    this.props.user.role == "admin" ? (
+                      <>
+                        <DropdownItem>
+                          <Link
+                            style={{ color: "inherit", textDecoration: "none" }}
+                            to="/admin/dashboard"
+                          >
+                            Dashboard
+                          </Link>
+                        </DropdownItem>
+                        <DropdownItem>Members</DropdownItem>
+                        <DropdownItem>Payments</DropdownItem>
+                      </>
+                    ) : (
+                        <>
+                          <DropdownItem>WishList</DropdownItem>
+                          <DropdownItem>History</DropdownItem>
+                        </>
+                      )}
                 </DropdownMenu>
               </Dropdown>
               <Link
@@ -129,7 +140,7 @@ class Navbar extends React.Component {
                 />
                 <CircleBg>
                   <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                    4 
+                    4 {this.state.totalQty}
                   </small>
                 </CircleBg>
               </Link>
@@ -175,8 +186,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  onLogout : logoutHandler,
+  onLogout: logoutHandler,
   onChangeFilter: navbarInputHandler,
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

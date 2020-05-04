@@ -15,6 +15,7 @@ class Cart extends React.Component {
     cartData: [],
     kondisiCheckout: false,
     totalPrice: 0,
+    checkoutItems: [],
   };
 
   getCartData = () => {
@@ -37,6 +38,20 @@ class Cart extends React.Component {
         console.log(err);
       });
   };
+
+  checkboxHandler = (e, idx) => {
+    const { checked } = e.target
+
+    if (checked) {
+      this.setState({ checkoutItems: [...this.state.checkoutItems, idx] })
+    } else {
+      this.setState({
+        checkoutItems: [
+          ...this.state.checkoutItems.filter((val) => val !== idx)
+        ]
+      })
+    }
+  }
 
 
   renderCartData = () => {
@@ -69,6 +84,9 @@ class Cart extends React.Component {
             >
               Delete Item
               </ButtonUI>
+          </td>
+          <td>
+            <input type="checkbox" className="form-check" onChange={(e) => this.checkboxHandler(e, idx)} />
           </td>
         </tr>
       );
@@ -123,6 +141,12 @@ class Cart extends React.Component {
     })
   }
 
+  getTime=() => {
+    let dateNow = new Date()
+    let time = dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds();
+    return dateNow.toLocaleString('id-ID', { year: 'numeric', month: 'long', day: 'numeric',weekday: 'long' })+"-"+ time
+  }
+
   confirmCheckOut = () => {
     const notaTransaksi = {
       userId: this.props.user.id,
@@ -131,7 +155,8 @@ class Cart extends React.Component {
       items:
         this.state.cartData.map(val => {
           return { ...val.product, quantity: val.quantity }
-        })
+        }),
+      date: this.getTime()
     }
     Axios.post(`${API_URL}/transaction`, notaTransaksi)
       .then((res) => {
@@ -171,6 +196,7 @@ class Cart extends React.Component {
                   <th>Quantity</th>
                   <th>Image</th>
                   <th>Action</th>
+                  <th><input type="checkbox" className="form-check" /></th>
                 </tr>
               </thead>
               <tbody>{this.renderCartData()}</tbody>
@@ -179,6 +205,7 @@ class Cart extends React.Component {
               <ButtonUI style={{ backgroundColor: "red" }} onClick=
                 {() => this.btnCheckout()}
                 type="contained">CheckOut</ButtonUI>
+            <ButtonUI className="ml-2" onClick={() => alert(this.state.checkoutItems)}> checkBox</ButtonUI>
             </div>
             {
               this.state.kondisiCheckout ? (
@@ -197,10 +224,10 @@ class Cart extends React.Component {
                     </tbody>
                   </Table>
                   <h6 className="d-flex flex-row">Total price :{" "}
-                  {new Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  }).format(this.state.totalPrice)}
+                    {new Intl.NumberFormat("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(this.state.totalPrice)}
                   </h6>
                   <center>
                     <ButtonUI onClick={this.confirmCheckOut}>Confirm</ButtonUI>
