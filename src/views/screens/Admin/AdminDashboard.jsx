@@ -245,6 +245,7 @@ class AdminDashboard extends Component {
                         </div>
                         <div className="col-4">
                             <TextField
+                                type="number"
                                 value={this.state.createForm.price}
                                 placeholder="Price"
                                 onChange={(e) => this.inputHandler(e, "price", "createForm")}

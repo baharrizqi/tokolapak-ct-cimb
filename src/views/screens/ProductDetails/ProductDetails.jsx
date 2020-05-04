@@ -26,16 +26,16 @@ class ProductDetails extends React.Component {
     // console.log(this.props.user.id);
     console.log(this.state.productData.id);
     const userId = this.props.user.id
-    const {id} = this.state.productData
+    const { id } = this.state.productData
 
-    Axios.get(`${API_URL}/carts`,{
-      params:{
-        productId:id,
-        userId:userId,
+    Axios.get(`${API_URL}/carts`, {
+      params: {
+        productId: id,
+        userId: userId,
       }
     })
-    .then((res) => {
-        if (res.data.length ==0) {
+      .then((res) => {
+        if (res.data.length == 0) {
           Axios.post(`${API_URL}/carts`, {
             userId: this.props.user.id,
             productId: this.state.productData.id,
@@ -48,20 +48,57 @@ class ProductDetails extends React.Component {
             .catch((err) => {
               console.log(err);
             });
-        } else  {
-          Axios.patch(`${API_URL}/carts/${res.data[0].id}`,{
-            quantity: res.data[0].quantity+1
+        } else {
+          Axios.patch(`${API_URL}/carts/${res.data[0].id}`, {
+            quantity: res.data[0].quantity + 1
           })
-          .then((res)=> {
-            console.log(res.data)
-            swal(`Add to cart : ${res.data.quantity}`, `Your item has been added to your cart`, "success");
-          })
+            .then((res) => {
+              console.log(res.data)
+              swal(`Add to cart : ${res.data.quantity}`, `Your item has been added to your cart`, "success");
+            })
         }
       })
       .catch((err) => {
         console.log(err);
       })
   };
+
+  addToWishHandler = () => {
+    const userId = this.props.user.id
+    const { id } = this.state.productData
+
+    Axios.get(`${API_URL}/wishlist`, {
+      params: {
+        productId: id,
+        userId: userId,
+      }
+    })
+      .then((res) => {
+        if (res.data.length == 0) {
+          Axios.post(`${API_URL}/wishlist`, {
+            userId: this.props.user.id,
+            productId: this.state.productData.id,
+            quantity: 1,
+          })
+            .then((res) => {
+              console.log(res);
+              swal(`Add to wishlist : ${res.data.quantity}`, "Your item has been added to your wishlist", "success");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          swal(``, `Item kamu sudah ada di wishlist`, "error");
+          // Axios.patch(`${API_URL}/wishlist/${res.data[0].id}`, {
+          //   quantity: res.data[0].quantity + 1
+          // })
+          //   .then((res) => {
+          //     console.log(res.data)
+          //     swal(`Add to wishlist : ${res.data.quantity}`, `Your item has been added to your wishlist`, "success");
+          //   })
+        }
+      })
+  }
 
   componentDidMount() {
     Axios.get(`${API_URL}/products/${this.props.match.params.productId}`)
@@ -104,7 +141,7 @@ class ProductDetails extends React.Component {
             {/* <TextField type="number" placeholder="Quantity" className="mt-3" /> */}
             <div className="d-flex flex-row mt-4">
               <ButtonUI onClick={this.addToCartHandler}>Add To Cart</ButtonUI>
-              <ButtonUI className="ml-4" type="outlined">
+              <ButtonUI onClick={this.addToWishHandler} className="ml-4" type="outlined">
                 Add To Wishlist
               </ButtonUI>
             </div>

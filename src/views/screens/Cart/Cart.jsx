@@ -141,27 +141,33 @@ class Cart extends React.Component {
     })
   }
 
-  getTime=() => {
+  getTime = () => {
     let dateNow = new Date()
     let time = dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds();
-    return dateNow.toLocaleString('id-ID', { year: 'numeric', month: 'long', day: 'numeric',weekday: 'long' })+"-"+ time
+    return dateNow.toLocaleString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }) + "-" + time
   }
+
 
   confirmCheckOut = () => {
     const notaTransaksi = {
       userId: this.props.user.id,
       totalPrice: this.state.totalPrice,
       status: "pending",
-      items:
-        this.state.cartData.map(val => {
-          return { ...val.product, quantity: val.quantity }
-        }),
+      // items:
+      //   this.state.cartData.map(val => {
+      //     return { ...val.product, quantity: val.quantity }
+      //   }),
       date: this.getTime()
     }
-    Axios.post(`${API_URL}/transaction`, notaTransaksi)
+
+    Axios.get(`${API_URL}/carts`, {
+      params: {
+        userId: this.props.user.id,
+        _expand: "product"
+      }
+    })
       .then((res) => {
-        console.log(res.data)
-        this.state.cartData.map((val) => {
+        res.data.map(val => {
           Axios.delete(`${API_URL}/carts/${val.id}`)
             .then((res) => {
               swal("Mantap Gan!", "Terima kasih Gan", "success")
@@ -172,9 +178,30 @@ class Cart extends React.Component {
               console.log(err);
             })
         })
+        Axios.post(`${API_URL}/transactions`, notaTransaksi)
+          .then(res => {
+            this.state.cartData.map(val => {
+              Axios.post(`${API_URL}/transactions_details`, {
+                productId: val.product.id,
+                transactionsId: res.data.id,
+                price: val.product.price,
+                totalHarga: val.product.price * val.quantity,
+                quantity: val.quantity
+              })
+                .then((res) => {
+                  console.log(res)
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.log(err)
       })
   }
 
@@ -205,7 +232,7 @@ class Cart extends React.Component {
               <ButtonUI style={{ backgroundColor: "red" }} onClick=
                 {() => this.btnCheckout()}
                 type="contained">CheckOut</ButtonUI>
-            <ButtonUI className="ml-2" onClick={() => alert(this.state.checkoutItems)}> checkBox</ButtonUI>
+              <ButtonUI className="ml-2" onClick={() => alert(this.state.checkoutItems)}> checkBox</ButtonUI>
             </div>
             {
               this.state.kondisiCheckout ? (

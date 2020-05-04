@@ -65,7 +65,7 @@
     },
     {
       "productName": "Desktop Mac",
-      "price": "230000000",
+      "price": 230000000,
       "category": "Phone",
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
       "desc": "Tab SUltan",
@@ -73,7 +73,7 @@
     },
     {
       "productName": "Laptop Keren",
-      "price": "2300000",
+      "price": 2300000,
       "category": "Laptop",
       "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/macbook_air_13/Product.png",
       "desc": "harga jutaan",
@@ -81,7 +81,7 @@
     },
     {
       "productName": "Air Pods keren",
-      "price": "5000000",
+      "price": 5000000,
       "category": "Desktop",
       "image": "https://ibox.co.id/media/wysiwyg/Slider/airpods-pro.png",
       "desc": "Harga lumayan sih",
@@ -89,175 +89,114 @@
     },
     {
       "productName": "Apel Jam",
-      "price": "1200000",
+      "price": 1200000,
       "category": "Desktop",
       "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/apple_watch_5/Product.png",
       "desc": "Ingin punya jam ? Ya beli",
       "id": 7
+    },
+    {
+      "productName": "coba",
+      "price": "1000",
+      "category": "Phone",
+      "image": "",
+      "desc": "",
+      "id": 8
     }
   ],
-  "carts": [],
-  "transaction": [
+  "carts": [
     {
       "userId": 5,
-      "totalPrice": 10000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 Plus",
-          "price": 5000000,
-          "category": "Phone",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1,
-          "quantity": 2
-        }
-      ],
+      "productId": 2,
+      "quantity": 3,
       "id": 1
     },
     {
       "userId": 5,
-      "totalPrice": 60000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 Plus",
-          "price": 5000000,
-          "category": "Phone",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1,
-          "quantity": 2
-        },
-        {
-          "productName": "Macbook Pro",
-          "price": 20000000,
-          "category": "Laptop",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/m/b/mbp15touch-silver-select-cto-201807_3_1.jpeg",
-          "desc": "HP Terbaikk loh",
-          "id": 3,
-          "quantity": 1
-        },
-        {
-          "productName": "iPad Pro 3",
-          "price": 15000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
-          "desc": "HP Terbaikk loh",
-          "id": 2,
-          "quantity": 2
-        }
-      ],
-      "date": 1588572897619,
+      "productId": 4,
+      "quantity": 1,
       "id": 2
+    },
+    {
+      "userId": 5,
+      "productId": 5,
+      "quantity": 2,
+      "id": 3
+    },
+    {
+      "userId": 5,
+      "productId": 6,
+      "quantity": 1,
+      "id": 4
+    },
+    {
+      "userId": 5,
+      "productId": 7,
+      "quantity": 2,
+      "id": 5
+    },
+    {
+      "userId": 5,
+      "productId": 1,
+      "quantity": 1,
+      "id": 6
+    }
+  ],
+  "wishlist": [
+    {
+      "userId": 5,
+      "productId": 7,
+      "quantity": 1,
+      "id": 1
+    }
+  ],
+  "transactions": [
+    {
+      "userId": 5,
+      "totalPrice": 20000000,
+      "status": "pending",
+      "tanggalBelanja": "4-May-2020 16:36:29",
+      "tanggalSelesai": "",
+      "id": 1
     },
     {
       "userId": 5,
       "totalPrice": 15000000,
       "status": "pending",
-      "items": [
-        {
-          "productName": "iPad Pro 3",
-          "price": 15000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
-          "desc": "HP Terbaikk loh",
-          "id": 2,
-          "quantity": 1
-        }
-      ],
-      "date": "2020-5-4",
+      "tanggalBelanja": "4-May-2020 16:43:3",
+      "tanggalSelesai": "",
+      "id": 2
+    },
+    {
+      "userId": 5,
+      "totalPrice": 5000000,
+      "status": "pending",
+      "tanggalBelanja": "4-May-2020 16:44:24",
+      "tanggalSelesai": "",
       "id": 3
     },
     {
       "userId": 5,
       "totalPrice": 5000000,
       "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 Plus",
-          "price": 5000000,
-          "category": "Phone",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1,
-          "quantity": 1
-        }
-      ],
-      "date": "2020-5-4",
+      "tanggalBelanja": "4-May-2020 16:45:11",
+      "tanggalSelesai": "",
       "id": 4
     },
     {
       "userId": 5,
       "totalPrice": 15000000,
       "status": "pending",
-      "items": [
-        {
-          "productName": "iPad Pro 3",
-          "price": 15000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
-          "desc": "HP Terbaikk loh",
-          "id": 2,
-          "quantity": 1
-        }
-      ],
-      "date": "Senin, 4 Mei 2020",
+      "date": "Senin, 4 Mei 2020-16:49:50",
       "id": 5
     },
     {
       "userId": 5,
-      "totalPrice": 5000000,
+      "totalPrice": 37300000,
       "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 Plus",
-          "price": 5000000,
-          "category": "Phone",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1,
-          "quantity": 1
-        }
-      ],
-      "date": "Senin, 4 Mei 2020",
+      "date": "Senin, 4 Mei 2020-16:50:42",
       "id": 6
-    },
-    {
-      "userId": 5,
-      "totalPrice": 15000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPad Pro 3",
-          "price": 15000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
-          "desc": "HP Terbaikk loh",
-          "id": 2,
-          "quantity": 1
-        }
-      ],
-      "date": "Mei 2020",
-      "id": 7
-    },
-    {
-      "userId": 5,
-      "totalPrice": 15000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPad Pro 3",
-          "price": 15000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad-pro-11-select-cell-spacegray-201810.png",
-          "desc": "HP Terbaikk loh",
-          "id": 2,
-          "quantity": 1
-        }
-      ],
-      "date": "Senin, 4 Mei 2020-13:42:30",
-      "id": 8
     }
-  ]
+  ],
+  "transactions_details": []
 }

@@ -122,7 +122,9 @@ class Navbar extends React.Component {
                       </>
                     ) : (
                         <>
-                          <DropdownItem>WishList</DropdownItem>
+                          <Link to="/wishlist">
+                          <DropdownItem>Wishlist</DropdownItem>
+                          </Link>
                           <DropdownItem>History</DropdownItem>
                         </>
                       )}
@@ -140,7 +142,7 @@ class Navbar extends React.Component {
                 />
                 <CircleBg>
                   <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                    4 {this.state.totalQty}
+                    {this.state.totalQty}
                   </small>
                 </CircleBg>
               </Link>
