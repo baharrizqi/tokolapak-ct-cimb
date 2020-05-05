@@ -16,10 +16,14 @@ class Cart extends React.Component {
     kondisiCheckout: false,
     totalPrice: 0,
     checkoutItems: [],
+    createForm: {
+      ongkir: 100000,
+    },
   };
 
   getCartData = () => {
     let subTotal = 0
+    let HargaTotal= 0
     Axios.get(`${API_URL}/carts`, {
       params: {
         userId: this.props.user.id,
@@ -32,12 +36,15 @@ class Cart extends React.Component {
         this.state.cartData.map((val) => {
           subTotal += val.product.price * val.quantity
         })
-        this.setState({ totalPrice: subTotal })
+        HargaTotal = subTotal+ (this.state.createForm.ongkir*1)
+        this.setState({ totalPrice: HargaTotal})
+        this.getCartData()
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
 
   checkboxHandler = (e, idx) => {
     const { checked } = e.target
@@ -140,6 +147,15 @@ class Cart extends React.Component {
       kondisiCheckout: true
     })
   }
+  inputHandler = (e, field, form) => {
+    const { value } = e.target;
+    this.setState({
+      [form]: {
+        ...this.state[form],
+        [field]: value,
+      },
+    })
+  }
 
   getTime = () => {
     let dateNow = new Date()
@@ -150,6 +166,7 @@ class Cart extends React.Component {
 
   confirmCheckOut = () => {
     const notaTransaksi = {
+      username: this.props.user.username,
       userId: this.props.user.id,
       totalPrice: this.state.totalPrice,
       status: "pending",
@@ -184,7 +201,7 @@ class Cart extends React.Component {
             this.state.cartData.map(val => {
               Axios.post(`${API_URL}/transactions_details`, {
                 productId: val.product.id,
-                transactionsId: res.data.id,
+                transactionId: res.data.id,
                 price: val.product.price,
                 totalHarga: val.product.price * val.quantity,
                 quantity: val.quantity
@@ -258,6 +275,19 @@ class Cart extends React.Component {
                     }).format(this.state.totalPrice)}
                   </h6>
                   <center>
+                    <div className="d-flex flex-row">
+                      <h3>durasi pengiriman</h3>
+                      <select
+                        value={this.state.createForm.ongkir}
+                        className="custom-text-input h-100 pl-3"
+                        onChange={(e) => this.inputHandler(e, "ongkir", "createForm")}
+                      >
+                        <option value={100000} selected>instant</option>
+                        <option value={50000}>same day</option>
+                        <option value={20000}>express</option>
+                        <option value={0}>economy</option>
+                      </select>
+                    </div>
                     <ButtonUI onClick={this.confirmCheckOut}>Confirm</ButtonUI>
                   </center>
                 </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import Cookie from "universal-cookie";
 import { connect } from "react-redux";
-
+import { Redirect } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -16,6 +16,9 @@ import AdminDashboard from "./views/screens/Admin/AdminDashboard";
 import Wishlist from "./views/screens/Wishlist/Wishlist";
 import Members from "./views/screens/Members/Members";
 import Payments from "./views/screens/Payments/Payments";
+import PageNotFound from "./views/screens/PageNotFound/PageNotFound";
+import History from "./views/screens/History/History";
+import PageReport from "./views/screens/PageReport/PageReport";
 
 const cookieObj = new Cookie();
 
@@ -37,8 +40,11 @@ class App extends React.Component {
           <Route exact path="/admin/dashboard" component={AdminDashboard} />
           <Route exact path="/members" component={Members} />
           <Route exact path="/payments" component={Payments} />
+          <Route exact path="/report" component={PageReport} />
         </>
       )
+    } else{
+      return <Redirect to="/pagenot" />;
     }
   }
 
@@ -57,6 +63,8 @@ class App extends React.Component {
             />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/wishlist" component={Wishlist} />
+            <Route exact path="/history" component={History} />
+            <Route exact path="/pagenot" component={PageNotFound}/>
             {this.renderAdminRoutes()}
           </Switch>
           <div style={{ height: "120px" }} />

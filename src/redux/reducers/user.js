@@ -11,6 +11,7 @@ const init_state = {
   errMsg: "",
   cookieChecked: false,
   searching: "",
+  qty: "",
 };
 
 export default (state = init_state, action) => {

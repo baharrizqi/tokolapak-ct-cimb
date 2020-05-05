@@ -13,7 +13,7 @@ import {
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import "./Navbar.css";
 import ButtonUI from "../Button/Button.tsx";
-import { logoutHandler, navbarInputHandler } from "../../../redux/actions";
+import { logoutHandler, navbarInputHandler ,navbarQty} from "../../../redux/actions";
 import Axios from "axios";
 import { API_URL } from "../../../constants/API";
 
@@ -41,9 +41,10 @@ class Navbar extends React.Component {
       .then((res) => {
         console.log(res.data);
         this.setState({ cartData: res.data });
-        this.state.cartData.map((val) => {
-          subQty +=  val.quantity
-        })
+        subQty = res.data.length
+        // this.state.cartData.map((val) => {
+        //   subQty +=  res.data.length
+        // })
         this.setState({ totalQty: subQty })
       })
       .catch((err) => {
@@ -123,13 +124,18 @@ class Navbar extends React.Component {
                         <Link to="/payments">
                         <DropdownItem>Payments</DropdownItem>
                         </Link>
+                        <Link to="/report">
+                        <DropdownItem>Report</DropdownItem>
+                        </Link>
                       </>
                     ) : (
                         <>
                           <Link to="/wishlist">
                           <DropdownItem>Wishlist</DropdownItem>
                           </Link>
+                          <Link to="/history">
                           <DropdownItem>History</DropdownItem>
+                          </Link>
                         </>
                       )}
                 </DropdownMenu>
@@ -194,6 +200,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   onLogout: logoutHandler,
   onChangeFilter: navbarInputHandler,
+  onLogin: navbarQty,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

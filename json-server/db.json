@@ -113,6 +113,25 @@
       "id": 1
     }
   ],
-  "transactions": [],
-  "transactions_details": []
+  "transactions": [
+    {
+      "username": "bahar",
+      "userId": 5,
+      "totalPrice": 30100000,
+      "status": "completed",
+      "tanggalBelanja": "Selasa, 5 Mei 2020-17:21:57",
+      "tanggalSelesai": "Selasa, 5 Mei 2020-17:22:49",
+      "id": 1
+    }
+  ],
+  "transactions_details": [
+    {
+      "productId": 2,
+      "transactionId": 1,
+      "price": 15000000,
+      "totalHarga": 30000000,
+      "quantity": 2,
+      "id": 1
+    }
+  ]
 }

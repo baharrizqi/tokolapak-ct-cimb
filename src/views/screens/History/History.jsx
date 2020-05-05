@@ -1,50 +1,50 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./Payments.css";
 import { Table, Alert } from "reactstrap";
 import Axios from "axios";
 import { API_URL } from "../../../constants/API";
 import ButtonUI from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import TextField from '../../components/TextField/TextField'
 
-class Payments extends React.Component {
+class History extends React.Component {
     state = {
-        paymentsList: [],
-        createForm: {
-            status: "",
-        },
+        historyList: [],
         kondisi: false
     }
-
-    getPaymentsData = () => {
+    getHistoryData = () => {
         Axios.get(`${API_URL}/transactions`, {
             params: {
                 _embed: "transactions_details",
+                status: "completed",
+                userId: this.props.user.id
             }
         })
             .then((res) => {
                 console.log(res.data)
-                this.setState({ paymentsList: res.data })
+                this.setState({ historyList: res.data })
             })
             .catch((err) => {
                 console.log(err);
             })
     }
-    renderPaymentsData = () => {
-        return this.state.paymentsList.map((val, idx) => {
-            const { id, userId, totalPrice, status, tanggalBelanja, tanggalSelesai, transactions_details, username } = val
+    editBtnHandler = (idx) => {
+        this.setState({
+            editForm: {
+                ...this.state.historyList[idx],
+            },
+            kondisi: true
+        })
+    }
+    renderHistoryData = ()=> {
+        return this.state.historyList.map((val, idx) => {
+            const { id, userId, totalPrice, status, tanggalBelanja, tanggalSelesai, transactions_details } = val
             return (
                 <tr>
                     <td>{idx + 1}</td>
-                    <td>{username}</td>
+                    <td>{userId}</td>
                     <td>{totalPrice}</td>
-                    {
-                        status == "pending" ? (
-                            <td style={{ color: "red" }}>{status}</td>
-                        ) : <td style={{ color: "blue" }}>{status}</td>
-                    }
+                    <td>{status}</td>
                     <td>{tanggalBelanja}</td>
                     <td>{tanggalSelesai}</td>
                     <thead>
@@ -57,6 +57,8 @@ class Payments extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
+                    {this.state.kondisi ? (
+                        <>
                         {transactions_details.map((val, idx) => {
                             return (
                                 <tr>
@@ -68,6 +70,9 @@ class Payments extends React.Component {
                                 </tr>
                             )
                         })}
+                        </>
+                    ) : null
+                    }
                     </tbody>
 
                     <td>
@@ -85,72 +90,33 @@ class Payments extends React.Component {
                             >
                                 Delete
                             </ButtonUI>
+                            <ButtonUI
+                                className="ml-2"
+                                type="outlined"
+                                onClick={() => this.editBtnHandler(idx)}
+                            >
+                                Tampilkan Transaksi Detail
+                            </ButtonUI>
                         </div>
                     </td>
                 </tr>
             )
         })
     }
-    getTime = () => {
-        let dateNow = new Date()
-        let time = dateNow.getHours() + ":" + dateNow.getMinutes() + ":" + dateNow.getSeconds();
-        return dateNow.toLocaleString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }) + "-" + time
-    }
-    confirmBtnPayments = (id) => {
-        Axios.patch(`${API_URL}/transactions/${id}`, {
-            status: "completed",
-            tanggalSelesai: this.getTime()
-        })
-            .then(res => {
-                this.getPaymentsData()
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-    deletePaymentsHandler = (id) => {
-        Axios.delete(`${API_URL}/transactions/${id}`)
-            .then((res) => {
-                this.getPaymentsData()
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-    inputHandler = (e, field, form) => {
-        const { value } = e.target;
-        this.setState({
-            [form]: {
-                ...this.state[form],
-                [field]: value,
-            },
-        })
-    }
     componentDidMount() {
-        this.getPaymentsData(this.state.createForm.status)
+        this.getHistoryData()
     }
     render() {
-        return (
+        return(
             <div className="container py-4">
                 {/* {this.state.wishData.length > 0 ? ( */}
                 <>
-                    <h3 className="text-center">Payments</h3>
-                    <div className="d-flex flex-row">
-                        <select
-                            value={this.state.createForm.status}
-                            className="custom-text-input h-100 pl-3"
-                            onChange={(e) => this.inputHandler(e, "status", "createForm")}
-                        >
-                            <option value="pending">pending</option>
-                            <option value="all">all</option>
-                            <option value="completed">completed</option>
-                        </select>
-                    </div>
+                    <h3 className="text-center">History</h3>
                     <Table>
                         <thead>
                             <tr>
                                 <th >No.</th>
-                                <th>Username</th>
+                                <th >UserId</th>
                                 <th >TotalPrice</th>
                                 <th >Status</th>
                                 <th >Tanggal Belanja</th>
@@ -159,7 +125,7 @@ class Payments extends React.Component {
                                 <th >Action</th>
                             </tr>
                         </thead>
-                        <tbody>{this.renderPaymentsData()}</tbody>
+                        <tbody>{this.renderHistoryData()}</tbody>
                     </Table>
                 </>
                 {/* ) : (
@@ -172,4 +138,10 @@ class Payments extends React.Component {
     }
 }
 
-export default connect()(Payments)
+const mapStateToProps = (state) => {
+    return {
+      user: state.user,
+    };
+  };
+
+export default connect(mapStateToProps)(History)
