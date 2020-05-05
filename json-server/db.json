@@ -104,7 +104,14 @@
       "id": 8
     }
   ],
-  "carts": [],
+  "carts": [
+    {
+      "userId": 4,
+      "productId": 2,
+      "quantity": 1,
+      "id": 1
+    }
+  ],
   "wishlist": [
     {
       "userId": 5,
@@ -120,8 +127,53 @@
       "totalPrice": 30100000,
       "status": "completed",
       "tanggalBelanja": "Selasa, 5 Mei 2020-17:21:57",
-      "tanggalSelesai": "Selasa, 5 Mei 2020-17:22:49",
+      "tanggalSelesai": "Selasa, 5 Mei 2020-20:35:4",
       "id": 1
+    },
+    {
+      "username": "admin",
+      "userId": 4,
+      "totalPrice": 20100000,
+      "status": "completed",
+      "tanggalBelanja": "Selasa, 5 Mei 2020-19:59:32",
+      "tanggalSelesai": "Selasa, 5 Mei 2020-20:35:1",
+      "id": 2
+    },
+    {
+      "username": "bahar",
+      "userId": 5,
+      "totalPrice": 2400000,
+      "status": "pending",
+      "tanggalBelanja": "Selasa, 5 Mei 2020-20:42:44",
+      "tanggalSelesai": "",
+      "id": 3
+    },
+    {
+      "username": "bahar",
+      "userId": 5,
+      "totalPrice": 230100000,
+      "status": "completed",
+      "tanggalBelanja": "Selasa, 5 Mei 2020-20:43:5",
+      "tanggalSelesai": "Selasa, 5 Mei 2020-20:45:26",
+      "id": 4
+    },
+    {
+      "username": "admin",
+      "userId": 4,
+      "totalPrice": 5100000,
+      "status": "completed",
+      "tanggalBelanja": "Selasa, 5 Mei 2020-21:48:12",
+      "tanggalSelesai": "Selasa, 5 Mei 2020-21:48:22",
+      "id": 5
+    },
+    {
+      "username": "pikachuu",
+      "userId": 3,
+      "totalPrice": 245100000,
+      "status": "completed",
+      "tanggalBelanja": "Selasa, 5 Mei 2020-21:53:20",
+      "tanggalSelesai": "Selasa, 5 Mei 2020-21:54:42",
+      "id": 6
     }
   ],
   "transactions_details": [
@@ -132,6 +184,54 @@
       "totalHarga": 30000000,
       "quantity": 2,
       "id": 1
+    },
+    {
+      "productId": 3,
+      "transactionId": 2,
+      "price": 20000000,
+      "totalHarga": 20000000,
+      "quantity": 1,
+      "id": 2
+    },
+    {
+      "productId": 5,
+      "transactionId": 3,
+      "price": 2300000,
+      "totalHarga": 2300000,
+      "quantity": 1,
+      "id": 3
+    },
+    {
+      "productId": 4,
+      "transactionId": 4,
+      "price": 230000000,
+      "totalHarga": 230000000,
+      "quantity": 1,
+      "id": 4
+    },
+    {
+      "productId": 1,
+      "transactionId": 5,
+      "price": 5000000,
+      "totalHarga": 5000000,
+      "quantity": 1,
+      "id": 5
+    },
+    {
+      "productId": 2,
+      "transactionId": 6,
+      "price": 15000000,
+      "totalHarga": 15000000,
+      "quantity": 1,
+      "id": 6
+    },
+    {
+      "productId": 4,
+      "transactionId": 6,
+      "price": 230000000,
+      "totalHarga": 230000000,
+      "quantity": 1,
+      "id": 7
     }
   ]
 }

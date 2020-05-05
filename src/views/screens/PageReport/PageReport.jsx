@@ -14,6 +14,7 @@ class PageReport extends React.Component {
         reportData: [],
         totalBelanjaOk: [],
         productOk: [],
+        barangKu: []
     }
     getReportData = () => {
         let subTotal = 0
@@ -39,21 +40,43 @@ class PageReport extends React.Component {
                         }
                     })
                         .then((res) => {
-                            // this.setState({productOk:res.data})
                             res.data.map((val) => {
                                 subTotal += val.totalPrice
                             })
                             this.setState({
                                 totalBelanjaOk: [...this.state.totalBelanjaOk, subTotal],
-                                
                             })
-                            // console.log(totalBelanjaOk)
+                        })
+                        .catch(err=> {
+                            console.log(err)
                         })
                 })
             })
             .catch((err) => {
                 console.log(err);
             })
+        Axios.get(`${API_URL}/transactions`, {
+            params: {
+                status: "completed",
+                _embed: "transactions_details"
+            }
+        })
+            .then((res) => {
+                this.setState({
+                    productOk: res.data
+                })
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        Axios.get(`${API_URL}/products`)
+        .then(res=> {
+            this.setState({barangKu:res.data})
+        })
+        .catch(err=> {
+            console.log(err)
+        })
     }
     renderReportData = () => {
         return this.state.totalBelanjaOk.map((val, idx) => {
@@ -81,53 +104,28 @@ class PageReport extends React.Component {
         })
     }
     renderReportProduct = () => {
-        return this.state.productOk.map((val, idx) => {
-            // const { id, userId, totalPrice, status, tanggalBelanja, tanggalSelesai, transactions_details, username } = val
-            return (
-                <tr>
-                    <td>{idx + 1}</td>
-                    <td>{val.productId}</td>
-                    {/* <td>{username}</td>
-                    <td>{totalPrice}</td>
-                    <td>{status}</td>
-                    <td>{tanggalBelanja}</td>
-                    <td>{tanggalSelesai}</td>
-                    <thead>
+        return this.state.barangKu.map((val,idx) => {
+            const { productName, id } = val
+            let subTotal = 0
+            this.state.productOk.map((valA) => {
+                valA.transactions_details.map((valB) => {
+                    if (id === valB.productId) {
+                        subTotal += valB.quantity
+                    }
+                    else {
+                        subTotal = subTotal
+                    }
+                })
+            })
+                return (
+                    <>
                         <tr>
-                            <th>No.</th>
-                            <th>ProductId</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total Price</th>
+                            <td>{idx+1}</td>
+                            <td>{productName}</td>
+                            <td>{subTotal}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {transactions_details.map((val, idx) => {
-                            return (
-                                <tr>
-                                    <td>{idx + 1}</td>
-                                    <td>{val.productId}</td>
-                                    <td>{val.price}</td>
-                                    <td>{val.quantity}</td>
-                                    <td>{val.totalHarga}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody> */}
-
-                    <td>
-                        <div className="d-flex flex-row" >
-                            <ButtonUI
-                                className="ml-2"
-                                type="outlined"
-                            // onClick={() => this.deletePaymentsHandler(id)}
-                            >
-                                Delete
-                            </ButtonUI>
-                        </div>
-                    </td>
-                </tr>
-            )
+                    </>
+                )
         })
     }
 
@@ -159,20 +157,12 @@ class PageReport extends React.Component {
                             <tr>
                                 <th>No.</th>
                                 <th>ProductName</th>
-                                <th>Username</th>
+                                <th>Banyaknya Beli</th>
                             </tr>
                         </thead>
                         <tbody>{this.renderReportProduct()}</tbody>
-                        <tfoot>
-
-                        </tfoot>
                     </Table>
                 </>
-                {/* ) : (
-                        <Alert>
-                            Your wishlist is empty! <Link to="/">Go shopping</Link>
-                        </Alert>
-                    )}  */}
             </div>
         )
     }

@@ -10,7 +10,8 @@ import swal from "sweetalert";
 class History extends React.Component {
     state = {
         historyList: [],
-        kondisi: false
+        kondisi: false,
+        productList:[],
     }
     getHistoryData = () => {
         Axios.get(`${API_URL}/transactions`, {
@@ -36,6 +37,7 @@ class History extends React.Component {
             kondisi: true
         })
     }
+
     renderHistoryData = ()=> {
         return this.state.historyList.map((val, idx) => {
             const { id, userId, totalPrice, status, tanggalBelanja, tanggalSelesai, transactions_details } = val
@@ -47,6 +49,7 @@ class History extends React.Component {
                     <td>{status}</td>
                     <td>{tanggalBelanja}</td>
                     <td>{tanggalSelesai}</td>
+                    <td>
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -71,29 +74,17 @@ class History extends React.Component {
                             )
                         })}
                         </>
-                    ) : null
+                    ):null
+                    
                     }
                     </tbody>
-
+                    </td>
                     <td>
                         <div className="d-flex flex-row" >
                             <ButtonUI
-                                type="outlined"
-                                onClick={(_) => this.confirmBtnPayments(id)}
-                            >
-                                Konfirmasi
-                            </ButtonUI>
-                            <ButtonUI
                                 className="ml-2"
                                 type="outlined"
-                                onClick={() => this.deletePaymentsHandler(id)}
-                            >
-                                Delete
-                            </ButtonUI>
-                            <ButtonUI
-                                className="ml-2"
-                                type="outlined"
-                                onClick={() => this.editBtnHandler(idx)}
+                                onClick={(idx) => this.editBtnHandler(idx)}
                             >
                                 Tampilkan Transaksi Detail
                             </ButtonUI>

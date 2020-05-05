@@ -15,7 +15,6 @@ class Payments extends React.Component {
         createForm: {
             status: "",
         },
-        kondisi: false
     }
 
     getPaymentsData = () => {
@@ -26,12 +25,44 @@ class Payments extends React.Component {
         })
             .then((res) => {
                 console.log(res.data)
+                console.log(this.state.createForm.status)
                 this.setState({ paymentsList: res.data })
             })
             .catch((err) => {
                 console.log(err);
             })
     }
+    filterCategoryBtn = (statusAll) => {
+        if (!statusAll) {
+            Axios.get(`${API_URL}/transactions`,{
+                params: {
+                    _embed: "transactions_details",
+                }
+            })
+                .then(res => {
+                    this.setState({ paymentsList: res.data })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        else {
+            Axios.get(`${API_URL}/transactions`, {
+                params: {
+                    status: statusAll,
+                    _embed: "transactions_details"
+                }
+            })
+                .then(res => {
+                    this.setState({ paymentsList: res.data })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+    }
+
+
     renderPaymentsData = () => {
         return this.state.paymentsList.map((val, idx) => {
             const { id, userId, totalPrice, status, tanggalBelanja, tanggalSelesai, transactions_details, username } = val
@@ -127,7 +158,7 @@ class Payments extends React.Component {
         })
     }
     componentDidMount() {
-        this.getPaymentsData(this.state.createForm.status)
+        this.getPaymentsData()
     }
     render() {
         return (
@@ -136,15 +167,9 @@ class Payments extends React.Component {
                 <>
                     <h3 className="text-center">Payments</h3>
                     <div className="d-flex flex-row">
-                        <select
-                            value={this.state.createForm.status}
-                            className="custom-text-input h-100 pl-3"
-                            onChange={(e) => this.inputHandler(e, "status", "createForm")}
-                        >
-                            <option value="pending">pending</option>
-                            <option value="all">all</option>
-                            <option value="completed">completed</option>
-                        </select>
+                        <ButtonUI onClick={() => this.filterCategoryBtn()}>ALL</ButtonUI>
+                        <ButtonUI className="ml-2" onClick={() => this.filterCategoryBtn("completed")}>Completed</ButtonUI>
+                        <ButtonUI className="ml-2" onClick={() => this.filterCategoryBtn("pending")}>Pending</ButtonUI>
                     </div>
                     <Table>
                         <thead>
